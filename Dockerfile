@@ -1,7 +1,5 @@
 FROM python:alpine:3.18
 
-WORKDIR /app
-
 RUN addgroup --gid 10001 --system nonroot \
   && adduser --uid 10000 --system --ingroup nonroot --home /home/nonroot nonroot
 
