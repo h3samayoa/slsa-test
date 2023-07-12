@@ -3,9 +3,6 @@ FROM python:3.9.17-slim-bullseye
 RUN addgroup --gid 10001 --system nonroot \
   && adduser --uid 10000 --system --ingroup nonroot --home /home/nonroot nonroot
 
-RUN apk add --no-cache tini
-ENTRYPOINT [ "/sbin/tini", "--" ]
-
 RUN apk --no-cache add \
         build-base \
         ca-certificates \
