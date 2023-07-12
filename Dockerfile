@@ -1,14 +1,15 @@
-FROM python:3.9.17-slim-bullseye
+FROM python:3.12.0b3-alpine3.18
 
 RUN addgroup --gid 10001 --system nonroot \
   && adduser --uid 10000 --system --ingroup nonroot --home /home/nonroot nonroot
 
-# RUN pip3 install \
-#         build-base \
-#         ca-certificates \
-#         freetype \
-#         freetype-dev \
-#         openjpeg-dev 
+RUN apk --no-cache add \
+        build-base \
+        ca-certificates \
+        freetype \
+        freetype-dev \
+        openjpeg-dev \
+        zlib-dev
 
 RUN pip install \
   pillow==2.8.0 \
