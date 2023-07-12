@@ -8,8 +8,7 @@ RUN pip3 install \
         ca-certificates \
         freetype \
         freetype-dev \
-        openjpeg-dev \
-        zlib-dev
+        openjpeg-dev 
 
 RUN pip install \
   pillow==2.8.0 \
