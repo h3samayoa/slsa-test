@@ -1,23 +1,19 @@
-FROM python:alpine:3.18
+FROM python:3.8-slim-buster
 
-RUN addgroup --gid 10001 --system nonroot \
-  && adduser --uid 10000 --system --ingroup nonroot --home /home/nonroot nonroot
+ENV PYTHONUNBUFFERED=1
 
-RUN apk add --no-cache tini
-ENTRYPOINT [ "/sbin/tini", "--" ]
+WORKDIR /app
 
-RUN apk --no-cache add \
-        build-base \
-        ca-certificates \
-        freetype \
-        freetype-dev \
-        openjpeg-dev \
-        zlib-dev
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt 
 
-RUN pip install \
-  pillow==2.8.0 \
-  rainbowstream
+COPY . .
 
-USER nonroot
+# RUN pip install \
+#   pillow==2.8.0 \
+#   rainbowstream
 
-CMD [ "rainbowstream" ]
+
+EXPOSE 5000
+
+CMD [ "python3", "-m",  "flask", "run", "--host=0.0.0.0", "--port=5000"]
