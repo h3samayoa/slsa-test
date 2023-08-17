@@ -1,5 +1,4 @@
-# ref: https://github.com/slsa-framework/slsa-verifier#verification-of-provenance
-name: slsa-verifier-test
+name: slsa-verifier-test # ref: https://github.com/slsa-framework/slsa-verifier#verification-of-provenance
 on:
   workflow_dispatch:
 
