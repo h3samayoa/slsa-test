@@ -4,4 +4,6 @@ app = Flask(__name__)
 @app.route('/')
 
 def hello():
-    return 'container works'
+    return 'python artifact'
+
+hello()
