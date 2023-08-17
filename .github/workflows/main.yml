@@ -49,4 +49,4 @@ jobs:
       upload-assets: true #send provenance file to a new release 
       provenance-name: "flask_app.intoto.json1"
       upload-tag-name: "v0.0.1"
-      private-repository: true
+      #private-repository: true
