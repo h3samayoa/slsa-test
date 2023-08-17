@@ -1,0 +1,12 @@
+# ref: https://github.com/slsa-framework/slsa-verifier#verification-of-provenance
+name: slsa-verifier-test
+on:
+  workflow_dispatch:
+
+jobs:
+  verify:
+  runs-on: ubuntu-latest
+  steps: 
+    - name: install slsa-verifier
+      uses: slsa-framework/slsa-verifier/actions/installer@v2.3.0
+
