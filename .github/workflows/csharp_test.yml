@@ -21,7 +21,7 @@ jobs:
         dotnet-version: 7.0.x
     
     - name: Restore Dependencies
-      run: dotnet restore main.cs
+      run: dotnet restore src/Sample.Core/main.cs
 
     - name: Build project
-      run: dotnet build main.cs
+      run: dotnet build src/Sample.Core/main.cs
