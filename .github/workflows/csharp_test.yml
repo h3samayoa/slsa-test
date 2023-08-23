@@ -25,4 +25,6 @@ jobs:
         dotnet-version: 3.1.101
 
     - name: Build project
-      run: dotnet build 
+      run: |
+        cd csharp_app/
+        dotnet build main.cs
