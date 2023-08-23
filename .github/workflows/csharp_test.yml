@@ -12,7 +12,9 @@ jobs:
     - name: checkout repo
       uses: actions/checkout@v3.5.3
       with:
-        sparse-checkout: csharp_app/
+        sparse-checkout: |
+          csharp_app/main.cs
+        sparse-checkout-cone-mode: false
   
     - name: list files
       run: ls -la
