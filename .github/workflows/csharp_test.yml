@@ -22,6 +22,9 @@ jobs:
     
     - name: Restore Dependencies
       run: dotnet restore src/Sample.Core
+    
+    - name: list files
+      run: ls -la
 
     - name: Build project
       run: dotnet build src/Sample.core/main.cs --configuration Release --no-restore
