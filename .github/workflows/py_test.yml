@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      hashes: ${{ steps.hash.outputs.hashes }}
+      hashes: ${{ steps.build.outputs.hashes }}
     steps:
       - name: checkout repo
         uses: actions/checkout@v3.5.3
