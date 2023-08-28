@@ -69,3 +69,10 @@ jobs:
         uses: "actions/download-artifact@v3.0.2"
         with:
           name: flask_app
+
+      - name: "Upload assets"
+        uses: "softprops/action-gh-release@v0.1.15"
+        with:
+          files: |
+            flask_app
+          tag_name: "v0.0.1"
