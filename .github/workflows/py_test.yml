@@ -1,4 +1,4 @@
-name: slsa-generator-test
+name: slsa-generator-test-py
 on:
   workflow_dispatch:
   release:
@@ -21,12 +21,13 @@ jobs:
       - name: install dependencies
         run: python -m pip install build
 
-      - name: build python
+      - name: build artifacts
+        id: build
         run: |
           python -m build
 
-      - name: build artifacts
-        id: build
+      - name: generate provenance
+        id: hash
         run: |
           cd dist
           HASHES=$(sha256sum * | base64 -w0)
@@ -36,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.2
         with:
           name: flask_app
-          path: flask_app/main.txt
+          path: flask_app
           if-no-files-found: error
           retention-days: 5
 
@@ -48,8 +49,8 @@ jobs:
       contents: write # Needed for release uploads
     uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.8.0
     with:
-      base64-subjects: ${{ needs.build.outputs.hashes }}
-      upload-assets: true #send provenance file to a new release 
-      provenance-name: "flask_app.intoto.json1"
+      base64-subjects: "${{ needs.build.outputs.hashes }}"
+      upload-assets: false #send provenance file to a new release 
       upload-tag-name: "v0.0.1"
-      #private-repository: true
+      provenance-name: "flask_app.intoto.json1"
+      private-repository: true
