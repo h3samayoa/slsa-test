@@ -24,4 +24,4 @@ jobs:
       run: dotnet restore src/Sample.Core
 
     - name: Build project
-      run: dotnet build src/Sample.core
+      run: dotnet build src/Sample.core/main.cs --configuration Release --no-restore
