@@ -1,5 +1,5 @@
 
-name: "SLSA generator demo"
+name: slsa-generator-test-py
 on:
   workflow_dispatch:
   release:
