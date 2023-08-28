@@ -1,23 +1,24 @@
-name: slsa-generator-test-py
+
+name: "SLSA generator demo"
 on:
   workflow_dispatch:
   release:
     types: [created]
-
+    
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: "ubuntu-latest"
     outputs:
-      hashes: ${{ steps.build.outputs.hashes }}
+      hashes: ${{ steps.hash.outputs.hashes }}
     steps:
       - name: checkout repo
-        uses: actions/checkout@v3.5.3
+        uses: "actions/checkout@v3"
 
-      - name: setup python environment 
-        uses: actions/setup-python@v4.7.0
+      - name: setup python environment
+        uses: "actions/setup-python@v4"
         with:
-          python-version: 3.11.4
-      
+          python-version: "3.11"
+
       - name: install dependencies
         run: python -m pip install build
 
@@ -26,38 +27,33 @@ jobs:
         run: |
           python -m build
 
-      - name: output files
-        run: ls -la
-
       - name: generate provenance
         id: hash
         run: |
           cd dist
-          ls -la
           HASHES=$(sha256sum * | base64 -w0)
           echo "hashes=$HASHES" >> "$GITHUB_OUTPUT"
       
-      - name: upload artifact
-        uses: actions/upload-artifact@v3.1.2
+      - name: upload artifacts
+        uses: "actions/upload-artifact@v3.1.2"
         with:
           name: flask_app
           path: flask_app
           if-no-files-found: error
           retention-days: 5
 
-  provenance: # ref: https://github.com/slsa-framework/slsa-github-generator/blob/main/internal/builders/generic/README.md
+  provenance:
     needs: [build]
     permissions:
-      actions: read # Needed for detection of GitHub Actions environment.
-      id-token: write # Needed for provenance signing and ID
-      contents: write # Needed for release uploads
+      actions: read # To read the workflow path.
+      id-token: write # To sign the provenance.
+      contents: write # To add assets to a release.
     uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.7.0
     with:
       base64-subjects: "${{ needs.build.outputs.hashes }}"
-      upload-assets: true #send provenance file to a new release 
+      upload-assets: true # Upload provenance to a new release
       upload-tag-name: "v0.0.1"
-      provenance-name: "flask_app.intoto.json1"
-      private-repository: true
+      provenance-name: "flask_app.intoto.jsonl"
 
   release:
     needs: [build, provenance]
