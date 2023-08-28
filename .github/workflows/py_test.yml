@@ -1,4 +1,3 @@
-
 name: slsa-generator-test-py
 on:
   workflow_dispatch:
