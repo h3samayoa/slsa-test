@@ -26,6 +26,9 @@ jobs:
         run: |
           python -m build
 
+      - name: output files
+        run: ls -la
+
       - name: generate provenance
         id: hash
         run: |
@@ -54,3 +57,15 @@ jobs:
       upload-tag-name: "v0.0.1"
       provenance-name: "flask_app.intoto.json1"
       private-repository: true
+
+  release:
+    needs: [build, provenance]
+    runs-on: "ubuntu-latest"
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: "Download artifact"
+        uses: "actions/download-artifact@v3.0.2"
+        with:
+          name: flask_app
