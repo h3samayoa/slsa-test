@@ -4,8 +4,7 @@
   <TargetFrameworks>net7.0</TargetFrameworks>
 </PropertyGroup>
 
-<PropertyGroup Condition="'$(Configuration)'=='Release">
-  <Description>Example of .Net Core + Github Actions</Description>
+<PropertyGroup Condition="'$(Configuration)''=='Release">
   <GenerateDocumentationFile>true</GenerateDocumentationFile>
 </PropertyGroup>
 
