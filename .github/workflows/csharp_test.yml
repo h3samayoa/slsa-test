@@ -31,11 +31,11 @@ jobs:
 
       - name: Build project
         id: build
-        run: dotnet build src/Sample.Core/ --configuration Release --no-restore
+        run: dotnet build src/Sample.Core/ --configuration Release --no-restore --property:OutputPath=src/
 
       - name: list files
         run: |
-          cd ../
+          cd src/
           ls -la
 
       - name: generate hashes
