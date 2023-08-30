@@ -34,7 +34,9 @@ jobs:
         run: dotnet build src/Sample.Core/ --configuration Release --no-restore
 
       - name: list files
-        run: ls -la
+        run: |
+          cd src/
+          ls -la
 
       - name: generate hashes
         shell: bash
