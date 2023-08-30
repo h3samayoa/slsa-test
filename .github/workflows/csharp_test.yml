@@ -35,7 +35,7 @@ jobs:
 
       - name: list files
         run: |
-          cd src/
+          cd src/Sample.Core/
           ls -la
 
       - name: generate hashes
