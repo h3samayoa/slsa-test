@@ -4,8 +4,4 @@
   <TargetFrameworks>net7.0</TargetFrameworks>
 </PropertyGroup>
 
-<PropertyGroup Condition="'$(Configuration)'== Release">
-  <GenerateDocumentationFile>true</GenerateDocumentationFile>
-</PropertyGroup>
-
 </Project>
