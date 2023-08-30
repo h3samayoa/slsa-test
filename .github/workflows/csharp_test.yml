@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      hashes: ${{ steps.hash.outputs.hashes }}
 
     steps:
       - name: checkout repo
@@ -31,7 +33,53 @@ jobs:
         run: ls -la
 
       - name: Build project
+        id: build
         run: dotnet build src/Sample.Core/ --configuration Release --no-restore
 
-      - name: list files
-        run: ls -la
+      - name: generate hashes
+        shell: bash
+        id: hash
+        run: |
+          cd dist
+          HASHES=$(sha256sum * | base64 -w0)
+          echo "hashes=$HASHES" >> "$GITHUB_OUTPUT"
+
+      - name: upload artifacts
+        uses: "actions/upload-artifact@v3.1.2"
+        with:
+          name: cs_artifact
+          path: src/Sample.Core/
+          if-no-files-found: error
+          retention-days: 5
+
+  provenance:
+    needs: [build]
+    permissions:
+      actions: read
+      id-token: write
+      contents: write
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.7.0
+    with:
+      base64-subjects: "${{ needs.build.outputs.hashes }}"
+      upload-assets: true
+      upload-tag-name: "v0.0.1"
+      provenance-name: "cs_artifact.intoto.json1"
+
+  release:
+    needs: [build, provenance]
+    runs-on: "ubuntu-latest"
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: "Download Artifact"
+        uses: "actions/download-artifact@v3.0.2"
+        with:
+          name: cs_artifact
+
+      - name: "Upload assets"
+        uses: "softprops/action-gh-release@v0.1.15"
+        with:
+          files: |
+            flask_app
+          tag-name: "v0.0.1"
