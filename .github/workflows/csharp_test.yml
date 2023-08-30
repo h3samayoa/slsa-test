@@ -35,7 +35,7 @@ jobs:
 
       - name: list files
         run: |
-          cd ../usr/bin
+          cd ../
           ls -la
 
       - name: generate hashes
