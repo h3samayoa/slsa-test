@@ -28,13 +28,17 @@ jobs:
 
       - name: Build project
         id: build
-        run: dotnet build src/Sample.Core/ --configuration Release --no-restore --property:OutputPath=src/
+        run: dotnet build src/Sample.Core/ --configuration Release --no-restore
+
+      - name: list fil|es
+        run: |
+          cd src/Sample.Core
 
       - name: generate hashes
         shell: bash
         id: hash
         run: |
-          cd src/Sample.Core/src/
+          cd src/Sample.Core/
           HASHES=$(sha256sum * | base64 -w0)
           echo "hashes=$HASHES" >> "$GITHUB_OUTPUT"
 
