@@ -30,7 +30,7 @@ jobs:
         id: build
         run: dotnet build src/Sample.Core/ --configuration Release --no-restore
 
-      - name: list fil|es
+      - name: list files
         run: |
           cd src/Sample.Core
 
