@@ -13,10 +13,6 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v3.5.3
-        with:
-          sparse-checkout: |
-            .github
-            src
 
       - name: Setup .NET core
         uses: actions/setup-dotnet@v3
