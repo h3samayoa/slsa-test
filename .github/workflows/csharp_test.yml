@@ -69,8 +69,12 @@ jobs:
 
       - name: "Download Artifact"
         uses: "actions/download-artifact@v3.0.2"
+        id: download
         with:
           name: cs_artifact
+
+      - name: echo download path
+        run: echo ${{ steps.download.outputs.download-path }}
 
       - name: "Upload assets"
         uses: "softprops/action-gh-release@v0.1.15"
