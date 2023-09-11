@@ -63,6 +63,10 @@ jobs:
       contents: write
       packages: write
     steps:
+      - name: list dir
+        run: |
+          ls -la
+
       - name: "Download Artifact"
         uses: "actions/download-artifact@v3.0.2"
         with:
@@ -82,9 +86,12 @@ jobs:
       - name: Install slsa-verifier
         uses: slsa-framework/slsa-verifier/actions/installer@v2.4.0
 
-      - name: Verify artifact provenance
+      - name: verify list files
         run: |
           ls -la
+
+      - name: Verify artifact provenance
+        run: |
           slsa-verifier verify-artifact src/Sample.Core/cs_artifact \
           --provenance-path cs_artifact.intoto.jsonl \
           --source-uri github.com/h3samayoa/slsa-test \
