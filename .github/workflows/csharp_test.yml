@@ -74,7 +74,6 @@ jobs:
 
       - name: list directories
         run: |
-          cd ../slsa-test/bin/Release/
           ls -la
 
       - name: relative path workaround
