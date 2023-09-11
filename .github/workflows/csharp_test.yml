@@ -39,7 +39,7 @@ jobs:
         uses: "actions/upload-artifact@v3.1.2"
         with:
           name: cs_artifact
-          path: src/Sample.Core/
+          path: src/Sample.Core/bin/Release/net7.0
           if-no-files-found: error
           retention-days: 5
 
@@ -77,11 +77,16 @@ jobs:
           cd ../slsa-test/bin/Release/net7.0
           ls -la
 
+      - name: relative path workaround
+        run: |
+          echo "artifact_path=$(../slsa-test/bin/Release/net7.0)" >> $GITHUB_ENV
+
       - name: upload artifacts
         uses: "actions/upload-artifact@v3.1.2"
         with:
           name: cs_artifact
-          path: ../slsa-test/bin/Release/net7.0
+          path: |
+            ${{ env.artifact_path }}/
           if-no-files-found: error
           retention-days: 5
 
