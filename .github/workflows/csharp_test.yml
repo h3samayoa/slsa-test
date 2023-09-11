@@ -80,7 +80,7 @@ jobs:
         uses: "softprops/action-gh-release@v0.1.15"
         with:
           files: |
-            src/Sample.Core
+            /home/runner/work/slsa-test/slsa-test
           tag_name: "v0.0.1"
 
   verify:
