@@ -77,12 +77,13 @@ jobs:
           cd ../slsa-test/bin/Release/net7.0
           ls -la
 
-      - name: "Upload assets"
-        uses: "softprops/action-gh-release@v0.1.15"
+      - name: upload artifacts
+        uses: "actions/upload-artifact@v3.1.2"
         with:
-          path: ../slsa-test/
-          tag_name: "v0.0.1"
+          name: cs_artifact
+          path: ../slsa-test/bin/Release/net7.0
           if-no-files-found: error
+          retention-days: 5
 
   verify:
     needs: [build, provenance, release]
