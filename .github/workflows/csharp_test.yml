@@ -82,6 +82,7 @@ jobs:
         with:
           path: ../slsa-test/
           tag_name: "v0.0.1"
+          if-no-files-found: error
 
   verify:
     needs: [build, provenance, release]
