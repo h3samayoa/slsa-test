@@ -84,10 +84,9 @@ jobs:
 
       - name: Verify artifact provenance
         run: |
+          ls -la
           slsa-verifier verify-artifact src/Sample.Core/cs_artifact \
           --provenance-path cs_artifact.intoto.jsonl \
           --source-uri github.com/h3samayoa/slsa-test \
           --source-branch main 
           --source-tag v0.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
