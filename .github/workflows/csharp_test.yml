@@ -63,15 +63,15 @@ jobs:
       contents: write
       packages: write
     steps:
-      - name: list dir
-        run: |
-          ls -la
+      - name: make directory
+        run: mkdir build
 
       - name: "Download Artifact"
         uses: "actions/download-artifact@v3.0.2"
         id: download
         with:
           name: cs_artifact
+          path: build/
 
       - name: echo download path
         run: echo ${{ steps.download.outputs.download-path }}
@@ -80,7 +80,7 @@ jobs:
         uses: "softprops/action-gh-release@v0.1.15"
         with:
           files: |
-            /home/runner/work/slsa-test/slsa-test
+            build/
           tag_name: "v0.0.1"
 
   verify:
