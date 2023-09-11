@@ -72,7 +72,7 @@ jobs:
         uses: "softprops/action-gh-release@v0.1.15"
         with:
           files: |
-            flask_app
+            src/Sample.Core
           tag_name: "v0.0.1"
 
   verify:
@@ -84,7 +84,7 @@ jobs:
 
       - name: Verify artifact provenance
         run: |
-          slsa-verifier verify-artifact cs_artifact \
+          slsa-verifier verify-artifact src/Sample.Core/cs_artifact \
           --provenance-path cs_artifact.intoto.jsonl \
           --source-uri github.com/h3samayoa/slsa-test \
           --source-branch main 
