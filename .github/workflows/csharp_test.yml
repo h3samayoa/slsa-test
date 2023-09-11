@@ -74,14 +74,14 @@ jobs:
 
       - name: list directories
         run: |
-          cd ../slsa-test/bin/Release
+          cd ../slsa-test/bin/Release/net7.0
           ls -la
 
       - name: "Upload assets"
         uses: "softprops/action-gh-release@v0.1.15"
         with:
           files: |
-            ../slsa-test/
+            ../slsa-test/bin/Release/net7.0
           tag_name: "v0.0.1"
 
   verify:
