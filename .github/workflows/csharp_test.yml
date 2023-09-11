@@ -63,8 +63,10 @@ jobs:
       contents: write
       packages: write
     steps:
-      - name: make directory
-        run: mkdir build
+      - name: list directories
+        run: |
+          cd ../
+          ls -la
 
       - name: "Download Artifact"
         uses: "actions/download-artifact@v3.0.2"
