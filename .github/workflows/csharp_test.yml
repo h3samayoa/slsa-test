@@ -26,11 +26,6 @@ jobs:
         id: build
         run: dotnet build src/Sample.Core/ --configuration Release --no-restore
 
-      - name: list files
-        run: |
-          cd src/Sample.Core/src
-          ls -la
-
       - name: generate hashes
         shell: bash
         id: hash
