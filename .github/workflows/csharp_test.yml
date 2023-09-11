@@ -65,7 +65,7 @@ jobs:
     steps:
       - name: list directories
         run: |
-          cd ../
+          cd ../slsa-test
           ls -la
 
       - name: "Download Artifact"
@@ -73,7 +73,6 @@ jobs:
         id: download
         with:
           name: cs_artifact
-          path: build/
 
       - name: echo download path
         run: echo ${{ steps.download.outputs.download-path }}
@@ -82,7 +81,7 @@ jobs:
         uses: "softprops/action-gh-release@v0.1.15"
         with:
           files: |
-            build/
+            ../slsa-test/slsa-test
           tag_name: "v0.0.1"
 
   verify:
