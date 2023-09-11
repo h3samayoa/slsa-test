@@ -83,3 +83,20 @@ jobs:
           files: |
             flask_app
           tag_name: "v0.0.1"
+
+  verify:
+    needs: [build, provenance, release]
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Install slsa-verifier
+        uses: slsa-framework/slsa-verifier/actions/installer@v2.4.0
+
+      - name: Verify artifact provenance
+        run: |
+          slsa-verifier verify-artifact cs_artifact \
+          --provenance-path cs_artifact.intoto.jsonl \
+          --source-uri github.com/h3samayoa/slsa-test \
+          --source-branch main 
+          --source-tag v0.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
