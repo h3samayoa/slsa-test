@@ -68,6 +68,7 @@ jobs:
         id: download
         with:
           name: cs_artifact
+          path: build/
 
       - name: echo download path
         run: echo ${{ steps.download.outputs.download-path }}
@@ -80,7 +81,7 @@ jobs:
         uses: "actions/upload-artifact@v3.1.2"
         with:
           name: cs_artifact
-          path: /
+          path: build/
 
   verify:
     needs: [build, provenance, release]
