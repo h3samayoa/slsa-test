@@ -95,7 +95,7 @@ jobs:
       - name: download provenance
         uses: "actions/download-artifact@v3.0.2"
         with: 
-          name: cs_artifact.intot.jsonl
+          name: cs_artifact.intoto.jsonl
           path: build/
 
       - name: display struture of downloaded files
