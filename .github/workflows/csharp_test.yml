@@ -106,7 +106,6 @@ jobs:
           --provenance-path cs_artifact.intoto.jsonl \
           --source-uri github.com/h3samayoa/slsa-test \
           --source-branch main 
-          --source-tag v0.0.1
 
       - name: list dir
         run: ls -R
