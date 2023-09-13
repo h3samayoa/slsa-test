@@ -94,7 +94,7 @@ jobs:
 
       - name: download provenance
         uses: "actions/download-artifact@v3.0.2"
-        with: 
+        with:
           name: cs_artifact.intoto.jsonl
           path: build/
 
@@ -108,3 +108,6 @@ jobs:
           --source-uri github.com/h3samayoa/slsa-test \
           --source-branch main 
           --source-tag v0.0.1
+
+      - name: list dir
+        run: ls -la
