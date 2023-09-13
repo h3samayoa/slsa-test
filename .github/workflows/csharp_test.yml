@@ -105,7 +105,8 @@ jobs:
           slsa-verifier verify-artifact build/Sample.Core.dll \
           --provenance-path cs_artifact.intoto.jsonl \
           --source-uri github.com/h3samayoa/slsa-test \
-          --source-branch main 
+          --source-branch main \
+          --print-provenance
 
       - name: list dir
         run: ls -R
