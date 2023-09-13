@@ -96,15 +96,14 @@ jobs:
         uses: "actions/download-artifact@v3.0.2"
         with:
           name: cs_artifact.intoto.jsonl
-          path: build/
 
       - name: display struture of downloaded files
         run: ls -R
 
       - name: Verify artifact provenance
         run: |
-          slsa-verifier verify-artifact build/cs_artifact \
-          --provenance-path build/cs_artifact.intoto.jsonl \
+          slsa-verifier verify-artifact build/ \
+          --provenance-path cs_artifact.intoto.jsonl \
           --source-uri github.com/h3samayoa/slsa-test \
           --source-branch main 
           --source-tag v0.0.1
