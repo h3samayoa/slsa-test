@@ -14,15 +14,15 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup .NET core
+      - name: setup .NET core
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.0
 
-      - name: Restore Dependencies
+      - name: restore deps
         run: dotnet restore src/Sample.Core
 
-      - name: Build project
+      - name: build artifacts
         id: build
         run: dotnet build src/Sample.Core/ --configuration Release --no-restore
 
@@ -56,43 +56,50 @@ jobs:
       upload-tag-name: "v0.0.1"
       provenance-name: "cs_artifact.intoto.jsonl"
 
-  release:
-    needs: [build, provenance]
-    runs-on: "ubuntu-latest"
-    permissions:
-      contents: write
-      packages: write
-    steps:
-      - name: "Download Artifact"
-        uses: "actions/download-artifact@v3.0.2"
-        id: download
-        with:
-          name: cs_artifact
-          path: build/
+  # release:
+  #   needs: [build, provenance]
+  #   runs-on: "ubuntu-latest"
+  #   permissions:
+  #     contents: write
+  #     packages: write
+  #   steps:
+  #     - name: download artifacts
+  #       uses: "actions/download-artifact@v3.0.2"
+  #       id: download
+  #       with:
+  #         name: cs_artifact
+  #         path: build/
 
-      - name: echo download path
-        run: echo ${{ steps.download.outputs.download-path }}
+  #     - name: display structure of downloaded files
+  #       run: ls -R
 
-      - name: list directories
-        run: |
-          ls -la
-
-      - name: upload artifacts
-        uses: "actions/upload-artifact@v3.1.2"
-        with:
-          name: cs_artifact
-          path: build/
+  #     - name: upload artifacts
+  #       uses: "actions/upload-artifact@v3.1.2"
+  #       with:
+  #         name: cs_artifact
+  #         path: build/
 
   verify:
-    needs: [build, provenance, release]
+    needs: [build, provenance]
     runs-on: "ubuntu-latest"
     steps:
       - name: Install slsa-verifier
         uses: slsa-framework/slsa-verifier/actions/installer@v2.4.0
 
-      - name: verify list files
-        run: |
-          ls -la
+      - name: download artifacts
+        uses: "actions/download-artifact@v3.0.2"
+        with:
+          name: cs_artifact
+          path: build/
+
+      - name: download provenance
+        uses: "actions/download-artifact@v3.0.2"
+        with: 
+          name: cs_artifact.intot.jsonl
+          path: build/
+
+      - name: display struture of downloaded files
+        run: ls -R
 
       - name: Verify artifact provenance
         run: |
