@@ -102,7 +102,7 @@ jobs:
 
       - name: Verify artifact provenance
         run: |
-          slsa-verifier verify-artifact build/ \
+          slsa-verifier verify-artifact build/Sample.Core.dll \
           --provenance-path cs_artifact.intoto.jsonl \
           --source-uri github.com/h3samayoa/slsa-test \
           --source-branch main 
