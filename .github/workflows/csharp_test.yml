@@ -14,12 +14,6 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v4
 
-      - name: install cosign
-        uses: sigstore/cosign-installer@v3.1.1
-
-      - name: check install
-        run: cosign version
-
       - name: setup .NET core
         uses: actions/setup-dotnet@v3
         with:
@@ -49,6 +43,20 @@ jobs:
           if-no-files-found: error
           retention-days: 5
 
+  sign:
+    needs: [build]
+    runs-on: unbuntu-latest
+    steps:
+      - name: install cosign
+        uses: sigstore/cosign-installer@v3.1.1
+        with:
+          cosign-release: main
+      
+      - name: check install
+        run: |
+          ls -R
+          cosign version
+
   provenance:
     needs: [build]
     permissions:
@@ -61,29 +69,6 @@ jobs:
       upload-assets: true
       upload-tag-name: "v0.0.1"
       provenance-name: "cs_artifact.intoto.jsonl"
-
-  # release:
-  #   needs: [build, provenance]
-  #   runs-on: "ubuntu-latest"
-  #   permissions:
-  #     contents: write
-  #     packages: write
-  #   steps:
-  #     - name: download artifacts
-  #       uses: "actions/download-artifact@v3.0.2"
-  #       id: download
-  #       with:
-  #         name: cs_artifact
-  #         path: build/
-
-  #     - name: display structure of downloaded files
-  #       run: ls -R
-
-  #     - name: upload artifacts
-  #       uses: "actions/upload-artifact@v3.1.2"
-  #       with:
-  #         name: cs_artifact
-  #         path: build/
 
   verify:
     needs: [build, provenance]
