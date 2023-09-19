@@ -6,7 +6,7 @@ namespace Sample.Core
 
     static void Main(string[] args)
     {
-      Console.WriteLine("hello");
+      Debug.WriteLine("hello");
     }
 
 
