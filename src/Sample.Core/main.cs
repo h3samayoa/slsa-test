@@ -1,3 +1,4 @@
+using CommandLine;
 namespace Sample.Core
 {
 
@@ -6,7 +7,7 @@ namespace Sample.Core
 
     static void Main(string[] args)
     {
-      Debug.WriteLine("hello");
+      Console.WriteLine("hello");
     }
 
 
