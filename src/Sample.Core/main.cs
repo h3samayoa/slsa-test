@@ -1,18 +1,21 @@
-using System;
-namespace Sample.Core;
-
-public static class FizzBuzz
+namespace Sample.Core
 {
-  public static string ToFizzBuzzFormat(int i)
+
+  public static class FizzBuzz
   {
-    if (i % 3 == 0 && i % 5 == 0) {
-      Console.WriteLine("FizzBuzz");
+    public static string ToFizzBuzzFormat(int i)
+    {
+      if (i % 3 == 0 && i % 5 == 0)
+      {
+        Console.WriteLine("FizzBuzz");
+      }
     }
+
+    static void Main(string[] args)
+    {
+      ToFizzBuzzFormat(5);
+    }
+
+
   }
-
-  static void Main(string[] args) {
-    ToFizzBuzzFormat(5);
-  }
-
-
 }
