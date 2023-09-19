@@ -1,12 +1,18 @@
-using System;
+namespace Sample.Core;
 
-namespace Sample.Core
+public static class FizzBuzz
 {
-  class HelloWorld
+  public static string ToFizzBuzzFormat(int i)
   {
-    static void Main(string[] args)
-    {
-      Console.WriteLine("Hello");
-    }
+    => i % 15 == 0 ? "Fizz Buzz"
+    : i % 5 == 0 ? "Buzz"
+    : i % 3 == 0? "Fizz"
+    : i.ToString();
   }
+
+  static void Main(string[] args) {
+    ToFizzBuzzFormat(5);
+  }
+
+
 }
