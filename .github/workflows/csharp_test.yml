@@ -60,8 +60,8 @@ jobs:
 
       - name: check install
         run: |
+          cosign sign-blob ./build/Sample.Core.dll --bundle cosign.bundle
           ls -R
-          cosign version
 
   provenance:
     needs: [build, sign]
