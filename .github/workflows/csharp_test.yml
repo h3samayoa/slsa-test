@@ -20,18 +20,11 @@ jobs:
           dotnet-version: 7.0
 
       - name: restore deps
-        run: dotnet restore src/Sample.Core/
+        run: dotnet restore src/Sample.Core
 
       - name: build artifacts
         id: build
-        run: |
-          dotnet publish src/Sample.Core/ \
-          --runtime win-x64 \
-          --configuration Release \
-          -p:PublishSingleFile=true \
-          -p:PublishTrimmed=true \
-          --self-contained true \
-          --no-restore
+        run: dotnet build src/Sample.Core/ --configuration Release --no-restore
 
       - name: generate hashes
         shell: bash
@@ -46,7 +39,7 @@ jobs:
         uses: "actions/upload-artifact@v3.1.2"
         with:
           name: cs_artifact
-          path: src/Sample.Core/bin/Release/net7.0/*.*
+          path: src/Sample.Core/bin/Release/net7.0
           if-no-files-found: error
           retention-days: 5
 
