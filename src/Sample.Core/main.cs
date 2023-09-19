@@ -1,10 +1,12 @@
+using System;
+
 namespace Sample.Core
 {
-  public static class HelloWorld
+  class HelloWorld
   {
     static void Main(string[] args)
     {
-      System.Console.WriteLine("Hello");
+      Console.WriteLine("Hello");
     }
   }
 }
