@@ -25,7 +25,7 @@ jobs:
       - name: build artifacts
         id: build
         run: |
-          dotnet publish src/Sample.core \
+          dotnet publish src/Sample.core/ \
           --runtime win-x64 \
           --configuration Release \
           -p:PublishSingleFile=true \
