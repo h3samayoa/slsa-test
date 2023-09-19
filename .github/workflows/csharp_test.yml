@@ -14,6 +14,12 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v4
 
+      - name: install cosign
+        uses: sigstore/cosign-installer@v3.1.1
+
+      - name: check install
+        run: cosign version
+
       - name: setup .NET core
         uses: actions/setup-dotnet@v3
         with:
@@ -110,3 +116,5 @@ jobs:
 
       - name: list dir
         run: ls -R
+
+        # add cosign signature after build/provenance generation add signature to verify artifact
