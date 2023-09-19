@@ -1,22 +1,7 @@
-<Project DefaultTargets="Compile">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net7.0</TargetFrameworks>
-    <appname>appCS</appname>
   </PropertyGroup>
-
-  <ItemGroup>
-    <CSFile Include="*.cs" />
-  </ItemGroup>
-
-  <Target Name="Compile">
-    <CSC
-      Sources="@(CSFile)"
-      OutputAssembly="$(appname).exe">
-      <Output
-        TaskParameter="OutputAssembly"
-        ItemName="EXEFile" />
-    </CSC>
-    <Message Text="The output file is @(EXEFile)" />
-  </Target>
+  
 </Project>
