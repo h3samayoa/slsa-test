@@ -6,7 +6,7 @@ public static class FizzBuzz
   public static string ToFizzBuzzFormat(int i)
   {
     if (i % 3 == 0 && i % 5 == 0) {
-      Console.WriteLine("FizzBuzz")
+      Console.WriteLine("FizzBuzz");
     }
   }
 
