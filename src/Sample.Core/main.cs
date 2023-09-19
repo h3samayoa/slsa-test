@@ -1,13 +1,12 @@
-using CommandLine;
 namespace Sample.Core
 {
 
-  class example
+  class Ex
   {
 
     static void Main(string[] args)
     {
-      Console.WriteLine("hello");
+      Console.WriteLine("Hello World!");
     }
 
 
