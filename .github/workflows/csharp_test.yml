@@ -30,8 +30,8 @@ jobs:
           --configuration Release \
           -p:PublishSingleFile=true \
           -p:PublishTrimmed=true \
-          --self-contained true
-
+          --self-contained true \
+          --no-restore
 
       - name: generate hashes
         shell: bash
