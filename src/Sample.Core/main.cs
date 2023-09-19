@@ -6,7 +6,8 @@ namespace Sample.Core
 
     static void Main(string[] args)
     {
-      Console.WriteLine("Hello World!");
+      int i = 5;
+      i += 5;
     }
 
 
