@@ -51,14 +51,20 @@ jobs:
         uses: sigstore/cosign-installer@v3.1.1
         with:
           cosign-release: main
-      
+
+      - name: download artifacts
+        uses: "actions/download-artifact@v3.0.2"
+        with:
+          name: cs_artifact
+          path: build/
+
       - name: check install
         run: |
           ls -R
           cosign version
 
   provenance:
-    needs: [build]
+    needs: [build, sign]
     permissions:
       actions: read
       id-token: write
