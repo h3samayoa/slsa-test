@@ -20,7 +20,7 @@ jobs:
           dotnet-version: 7.0
 
       - name: restore deps
-        run: dotnet restore src/Sample.Core
+        run: dotnet restore src/Sample.Core/
 
       - name: build artifacts
         id: build
