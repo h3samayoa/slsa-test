@@ -45,7 +45,7 @@ jobs:
 
   sign:
     needs: [build]
-    runs-on: unbuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: install cosign
         uses: sigstore/cosign-installer@v3.1.1
