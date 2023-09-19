@@ -24,7 +24,13 @@ jobs:
 
       - name: build artifacts
         id: build
-        run: dotnet build src/Sample.Core/ --configuration Release --no-restore
+        run: |
+          dotnet publish --runtime win-x64 \
+          --configuration Release \
+          -p:PublishSingleFile=true \
+          -p:PublishTrimmed=true \
+          --self-contained true
+
 
       - name: generate hashes
         shell: bash
