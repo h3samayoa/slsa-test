@@ -86,7 +86,7 @@ jobs:
         run: |
           ls -R
           cosign sign-blob cs_artifact.intoto.jsonl --bundle cosign.bundle
-          cat build/cosign.bundle
+          cat cosign.bundle
 
       # - name: upload artifacts
       #   uses: "actions/upload-artifact@v3.1.2"
