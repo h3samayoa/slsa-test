@@ -58,10 +58,18 @@ jobs:
           name: cs_artifact
           path: build/
 
-      - name: check install
+      - name: sign blob
         run: |
           cosign sign-blob ./build/Sample.Core.dll --bundle cosign.bundle
           cat build/cosign.bundle
+
+      - name: upload artifacts
+        uses: "actions/upload-artifact@v3.1.2"
+        with:
+          name: cs_signed
+          path: build/cosign.bundle
+          if-no-files-found: error
+          retention-days: 5
 
   provenance:
     needs: [build, sign]
