@@ -43,36 +43,8 @@ jobs:
           if-no-files-found: error
           retention-days: 5
 
-  sign:
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-      - name: install cosign
-        uses: sigstore/cosign-installer@v3.1.1
-        with:
-          cosign-release: main
-
-      - name: download artifacts
-        uses: "actions/download-artifact@v3.0.2"
-        with:
-          name: cs_artifact
-          path: build/
-
-      - name: sign blob
-        run: |
-          cosign sign-blob ./build/Sample.Core.dll --bundle cosign.bundle
-          cat build/cosign.bundle
-
-      - name: upload artifacts
-        uses: "actions/upload-artifact@v3.1.2"
-        with:
-          name: cs_signed
-          path: build/cosign.bundle
-          if-no-files-found: error
-          retention-days: 5
-
   provenance:
-    needs: [build, sign]
+    needs: [build]
     permissions:
       actions: read
       id-token: write
@@ -84,10 +56,15 @@ jobs:
       upload-tag-name: "v0.0.1"
       provenance-name: "cs_artifact.intoto.jsonl"
 
-  verify:
+  sign-verify:
     needs: [build, provenance]
     runs-on: "ubuntu-latest"
     steps:
+      - name: install cosign
+        uses: sigstore/cosign-installer@v3.1.1
+        with:
+          cosign-release: main
+
       - name: Install slsa-verifier
         uses: slsa-framework/slsa-verifier/actions/installer@v2.4.0
 
@@ -104,6 +81,20 @@ jobs:
 
       - name: display struture of downloaded files
         run: ls -R
+
+      - name: sign blob
+        run: |
+          ls -R
+          cosign sign-blob cs_artifact.intoto.jsonl --bundle cosign.bundle
+          cat build/cosign.bundle
+
+      # - name: upload artifacts
+      #   uses: "actions/upload-artifact@v3.1.2"
+      #   with:
+      #     name: cs_signed
+      #     path: build/cosign.bundle
+      #     if-no-files-found: error
+      #     retention-days: 5
 
       - name: Verify artifact provenance
         run: |
